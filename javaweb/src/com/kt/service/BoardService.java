@@ -36,7 +36,8 @@ public class BoardService {
 	}
 	
 	public void modify(BoardVO board, MemberVO member) throws CannotDeleteException {
-		if (! board.isSameUser(member)) {
+		BoardVO boardOrigin = dao.read(board.getBoardNum());
+		if (! boardOrigin.isSameUser(member)) {
 			throw new CannotDeleteException("다른 사용자가 쓴 글을 수정할 수 없습니다.");
 		}
 		
@@ -44,13 +45,13 @@ public class BoardService {
 	}
 	
 	public void delete(Integer boardNum, MemberVO member) throws CannotDeleteException {
-		BoardVO board = dao.read(boardNum);
-		if (! board.isSameUser(member)) {
+		BoardVO boardOrigin = dao.read(boardNum);
+		if (! boardOrigin.isSameUser(member)) {
 			throw new CannotDeleteException("다른 사용자가 쓴 글을 삭제할 수 없습니다.");
 		}
 		
 		logger.info("Same Member");
-		dao.delete(board);
+		dao.delete(boardOrigin);
 	}
 	
 	public int getTotalCount() {
