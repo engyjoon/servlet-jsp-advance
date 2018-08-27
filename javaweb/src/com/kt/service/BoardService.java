@@ -1,5 +1,7 @@
 package com.kt.service;
 
+import java.util.List;
+
 import com.kt.dao.BoardDAO;
 import com.kt.domain.BoardVO;
 
@@ -18,6 +20,10 @@ public class BoardService {
 	
 	public void insert(BoardVO board) {
 		dao.insert(board);
+	}
+
+	public List<BoardVO> selectList() {
+		return dao.selectList();
 	}
 
 }
