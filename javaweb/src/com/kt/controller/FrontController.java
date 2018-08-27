@@ -6,10 +6,13 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kt.controller.member.LoginController;
 
 public class FrontController extends HttpServlet {
 	
@@ -22,6 +25,10 @@ public class FrontController extends HttpServlet {
 		controllerMap = new HashMap<>();
 		
 		controllerMap.put("/home.do", new HomeController());
+		controllerMap.put("/login.do", new LoginController());
+		
+		ServletContext sc = config.getServletContext();
+		sc.setAttribute("contextPath", sc.getContextPath()); // "javaweb"
 	}
 	
 	@Override
@@ -40,7 +47,8 @@ public class FrontController extends HttpServlet {
 	private void move(String viewName, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (viewName.startsWith(DEFAULT_REDIRECT_PREFIX)) {
-			
+			resp.sendRedirect(req.getContextPath() + viewName.substring(DEFAULT_REDIRECT_PREFIX.length()));
+			return;
 		}
 		
 		RequestDispatcher rd = req.getRequestDispatcher(viewName);
