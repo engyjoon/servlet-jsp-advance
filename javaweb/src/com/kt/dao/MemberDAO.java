@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.kt.common.JdbcUtil;
+import com.kt.domain.MemberVO;
 
 public class MemberDAO {
 
@@ -44,6 +45,35 @@ public class MemberDAO {
 		}
 		
 		return result;
+	}
+
+	public MemberVO getMemberById(String memberId) {
+		StringBuffer query = new StringBuffer();
+		query.append("select member_id, member_pw, member_name, member_email ");
+		query.append("from tb_member ");
+		query.append("where member_id = ?");
+		
+		MemberVO member = new MemberVO();
+		
+		try {
+			Connection conn = JdbcUtil.getConnection("test");
+			PreparedStatement pstmt = conn.prepareStatement(query.toString());
+			
+			pstmt.setString(1, memberId);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				member.setMemberId(rs.getString("MEMBER_ID"));
+				member.setMemberPw(rs.getString("MEMBER_PW"));
+				member.setMemberName(rs.getString("MEMBER_NAME"));
+				member.setMemberEmail(rs.getString("MEMBER_EMAIL"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return member;
 	}
 
 }

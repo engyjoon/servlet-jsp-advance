@@ -35,7 +35,7 @@ public class LoginController extends AbstractController {
 			return "redirect:/login.do";
 		} else {
 			HttpSession session = request.getSession();
-			//session.setAttribute("member", service.getMemberById(memberId));
+			session.setAttribute("member", service.getMemberById(memberId));
 			return "redirect:/home.do";
 		}
 	}

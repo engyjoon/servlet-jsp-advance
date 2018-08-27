@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kt.controller.board.BoardListController;
+import com.kt.controller.board.BoardWriteController;
 import com.kt.controller.member.LoginController;
 import com.kt.controller.member.LogoutController;
 
@@ -26,8 +28,12 @@ public class FrontController extends HttpServlet {
 		controllerMap = new HashMap<>();
 		
 		controllerMap.put("/home.do", new HomeController());
+		
 		controllerMap.put("/login.do", new LoginController());
 		controllerMap.put("/logout.do", new LogoutController());
+		
+		controllerMap.put("/board/list.do", new BoardListController());
+		controllerMap.put("/board/write.do", new BoardWriteController());
 		
 		ServletContext sc = config.getServletContext();
 		sc.setAttribute("contextPath", sc.getContextPath()); // "javaweb"

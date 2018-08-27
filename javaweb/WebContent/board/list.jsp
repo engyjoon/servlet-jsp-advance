@@ -61,7 +61,7 @@
 			feather.replace();
 			$(".sidebar-sticky > .nav > li:eq(1)").children().addClass("active");
 			$("#btnWrite").click(function() {
-				
+				location.href = "${contextPath}/board/write.do";
 			});
 			$("#pageItemActive").addClass("active");
 		});

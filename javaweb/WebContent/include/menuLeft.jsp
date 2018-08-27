@@ -10,13 +10,13 @@
 				<div class="sidebar-sticky">
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link" href="#">
+							<a class="nav-link" href="${contextPath}/home.do">
 								<span data-feather="monitor"></span> Dashboard
 								<span class="sr-only">(current)</span>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
+							<a class="nav-link" href="${contextPath}/board/list.do">
 								<span data-feather="clipboard"></span> Free Board
 							</a>
 						</li>
