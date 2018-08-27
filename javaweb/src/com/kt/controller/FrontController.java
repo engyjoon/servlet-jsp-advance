@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kt.controller.member.LoginController;
+import com.kt.controller.member.LogoutController;
 
 public class FrontController extends HttpServlet {
 	
@@ -26,6 +27,7 @@ public class FrontController extends HttpServlet {
 		
 		controllerMap.put("/home.do", new HomeController());
 		controllerMap.put("/login.do", new LoginController());
+		controllerMap.put("/logout.do", new LogoutController());
 		
 		ServletContext sc = config.getServletContext();
 		sc.setAttribute("contextPath", sc.getContextPath()); // "javaweb"
