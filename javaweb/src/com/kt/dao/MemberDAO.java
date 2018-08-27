@@ -25,14 +25,18 @@ public class MemberDAO {
 		
 		boolean result = false;
 		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
 		try {
-			Connection conn = JdbcUtil.getConnection("test");
-			PreparedStatement pstmt = conn.prepareStatement(query.toString());
+			conn = JdbcUtil.getConnection("test");
+			pstmt = conn.prepareStatement(query.toString());
 			
 			pstmt.setString(1, memberId);
 			pstmt.setString(2, memberPw);
 			
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
 				if (rs.getInt(1) == 1) {
@@ -42,6 +46,10 @@ public class MemberDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+			try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+			try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
 		}
 		
 		return result;
@@ -55,13 +63,17 @@ public class MemberDAO {
 		
 		MemberVO member = new MemberVO();
 		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
 		try {
-			Connection conn = JdbcUtil.getConnection("test");
-			PreparedStatement pstmt = conn.prepareStatement(query.toString());
+			conn = JdbcUtil.getConnection("test");
+			pstmt = conn.prepareStatement(query.toString());
 			
 			pstmt.setString(1, memberId);
 			
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
 				member.setMemberId(rs.getString("MEMBER_ID"));
@@ -71,6 +83,10 @@ public class MemberDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+			try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+			try { rs.close(); } catch (Exception e) { e.printStackTrace(); }
 		}
 		
 		return member;
