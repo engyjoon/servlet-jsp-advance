@@ -57,7 +57,27 @@
 		</div>
 		<div class="row">
 			<div class="col">
-
+				<nav>
+					<ul class="pagination justify-content-center">
+						<c:if test="${pageMaker.prev}">
+							<li class="page-item">
+								<a class="page-link" href="${contextPath}/board/list.do?page=${pageMaker.startPage - 1}"><span aria-hidden="true">&laquo;</span></a>
+							</li>
+						</c:if>
+						
+						<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+							<li class="page-item" <c:out value="${pageMaker.pageRange.page == idx ? 'id=pageItemActive' : ''}"/>>
+								<a class="page-link" href="${contextPath}/board/list.do?page=${idx}">${idx}</a>
+							</li>
+						</c:forEach>
+						
+						<c:if test="${pageMaker.next}">
+							<li class="page-item">
+								<a class="page-link" href="${contextPath}/board/list.do?page=${pageMaker.endPage + 1}"><span aria-hidden="true">&raquo;</span></a>
+							</li>
+						</c:if>
+					</ul>
+				</nav>
 			</div>
 		</div>
 	</div>

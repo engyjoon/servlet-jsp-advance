@@ -20,12 +20,14 @@ public class AbstractController implements Controller {
 		return null;
 	}
 
-	protected String doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected String doPost(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	protected String doGet(HttpServletRequest request, HttpServletResponse response) {
+	protected String doGet(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
 		// TODO Auto-generated method stub
 		return null;
 	}

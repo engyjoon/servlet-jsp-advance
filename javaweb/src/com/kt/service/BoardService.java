@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kt.dao.BoardDAO;
 import com.kt.domain.BoardVO;
+import com.kt.domain.PageRange;
 
 public class BoardService {
 	
@@ -22,8 +23,12 @@ public class BoardService {
 		dao.insert(board);
 	}
 
-	public List<BoardVO> selectList() {
-		return dao.selectList();
+	public List<BoardVO> selectList(PageRange pg) {
+		return dao.selectList(pg);
+	}
+
+	public int getTotalCount() {
+		return dao.getTotalCount();
 	}
 
 }

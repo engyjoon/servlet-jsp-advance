@@ -9,6 +9,7 @@ import java.util.List;
 import com.kt.common.JdbcUtil;
 import com.kt.common.QueryManager;
 import com.kt.domain.BoardVO;
+import com.kt.domain.PageRange;
 
 public class BoardDAO {
 	
@@ -32,7 +33,7 @@ public class BoardDAO {
 		return manager.update(DB_NAME, query.toString(), board.getBoardSubject(), board.getBoardContent(), 0, board.getMemberId());
 	}
 
-	public List<BoardVO> selectList() {
+	public List<BoardVO> selectList(PageRange pg) {
 		QueryManager manager = new QueryManager();
 		
 		StringBuffer query = new StringBuffer();
@@ -41,12 +42,13 @@ public class BoardDAO {
 		query.append("from tb_board t1, tb_member t2 ");
 		query.append("where t1.member_id = t2.member_id ");
 		query.append("order by t1.board_num desc ");
+		query.append("limit ? offset ?");
 		
 		List<BoardVO> result = new ArrayList<>();
 		
 		try(Connection conn = JdbcUtil.getConnection(DB_NAME);
 			PreparedStatement pstmt = conn.prepareStatement(query.toString());
-			ResultSet rs = manager.select(pstmt)) {
+			ResultSet rs = manager.select(pstmt, pg.getPerPageNum(), pg.getPageStart())) {
 			
 			while(rs.next()) {
 				BoardVO board = new BoardVO();
@@ -59,6 +61,27 @@ public class BoardDAO {
 				board.setMemberName(rs.getString("MEMBER_NAME"));
 				result.add(board);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public int getTotalCount() {
+		StringBuffer query = new StringBuffer();
+		query.append("select count(*) from tb_board");
+		
+		int result = 0;
+		
+		try(Connection conn = JdbcUtil.getConnection(DB_NAME);
+			PreparedStatement pstmt = conn.prepareStatement(query.toString());
+			ResultSet rs = pstmt.executeQuery()) {
+			
+			while(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
