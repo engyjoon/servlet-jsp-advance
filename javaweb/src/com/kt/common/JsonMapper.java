@@ -60,4 +60,20 @@ public class JsonMapper<T> {
 		
 		return rtArray;
 	}
+
+	@SuppressWarnings("unchecked")
+	public JSONArray getJSONArray(ArrayList<T> list) throws Exception {
+		JSONArray rtArray = null;
+		
+		if (list == null || list.size() == 0) {
+			return rtArray;
+		}
+		
+		rtArray = new JSONArray();
+		for (T obj : list) {
+			rtArray.add(getJSONObject(obj));
+		}
+		
+		return rtArray;
+	}
 }

@@ -22,15 +22,16 @@ where 1=1
 -- 3 - average; 
 -- 4 - high; 
 -- 5 - disaster.
-  
-select t4.priority, count(*)
+
+with recursive w1(n) as (values(0) union all select n+1 from w1 where n < 5)
+select w1.n, count(*)
 from hosts t1, items t2, functions t3, triggers t4
+right outer join w1 on t4.priority = w1.n
 where 1=1
   and t1.hostid = t2.hostid and t2.itemid = t3.itemid and t3.triggerid = t4.triggerid
   and t1.host = 'Zabbix server'
-  and t4.value = '1'
-group by t4.priority
-order by t4.priority;
+group by w1.n
+order by 1 desc;
 
 select 
 	t2.itemid, t2.key_, t2.name, 

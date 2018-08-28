@@ -17,6 +17,7 @@ import com.kt.controller.board.BoardWriteController;
 import com.kt.controller.member.LoginController;
 import com.kt.controller.member.LogoutController;
 import com.kt.controller.zabbix.ZabbixSelectAlarmCountController;
+import com.kt.controller.zabbix.ZabbixSelectHistory;
 
 public class FrontController extends HttpServlet {
 	
@@ -37,6 +38,7 @@ public class FrontController extends HttpServlet {
 		controllerMap.put("/board/write.do", new BoardWriteController());
 		
 		controllerMap.put("/zabbix/listAlarm.do", new ZabbixSelectAlarmCountController());
+		controllerMap.put("/zabbix/listHistory.do", new ZabbixSelectHistory());
 		
 		ServletContext sc = config.getServletContext();
 		sc.setAttribute("contextPath", sc.getContextPath()); // "javaweb"
