@@ -43,7 +43,7 @@
 					<c:forEach var="board" items="${boardList}">
 						<tr>
 							<th style="width:100px" class="text-center">${board.boardNum}</th>
-							<td class="w-auto">${board.boardSubject}</td>
+							<td class="w-auto"><a href="${contextPath}/board/read.do?bno=${board.boardNum}&page=${pageMaker.pageRange.page}">${board.boardSubject}</a></td>
 							<td style="width:200px" class="text-center">${board.memberName}</td>
 							<td style="width:300px" class="text-center">
 								<fmt:formatDate value="${board.boardDate}" pattern="yyyy/MM/dd HH:mm:ss" />
