@@ -29,12 +29,15 @@ public class ZabbixDAO {
 		QueryManager manager = new QueryManager();
 		
 		StringBuffer query = new StringBuffer();
-		query.append("select count(*) ");
-		query.append("from hosts t1, items t2, functions t3, triggers t4 ");
-		query.append("where t1.hostid = t2.hostid and t2.itemid = t3.itemid and t3.triggerid = t4.triggerid ");
-		query.append("  and t1.host = ? ");
-		query.append("group by t4.priority ");
-		query.append("order by t4.priority desc");
+		query.append("with recursive w1(num) as (values(0) union all select num+1 from w1 where num < 5) ");
+		query.append("select cnt ");
+		query.append("from ( ");
+		query.append("    select t4.priority, count(*) cnt ");
+		query.append("    from hosts t1, items t2, functions t3, triggers t4 ");
+		query.append("    where t1.hostid = t2.hostid and t2.itemid = t3.itemid and t3.triggerid = t4.triggerid ");
+		query.append("      and t1.host = ? ");
+		query.append("    group by t4.priority) v1 right join w1 on (v1.priority = w1.num) ");
+		query.append("order by w1.num desc");
 		
 		ArrayList<Integer> result = new ArrayList<>();
 		

@@ -23,14 +23,27 @@ where 1=1
 -- 4 - high; 
 -- 5 - disaster.
 
-with recursive w1(n) as (values(0) union all select n+1 from w1 where n < 5)
-select w1.n, count(*)
-from hosts t1, items t2, functions t3, triggers t4
-right outer join w1 on t4.priority = w1.n
+with recursive w1(num) as (values(0) union all select num+1 from w1 where num < 5)
+select w1.num, cnt
+from (
+	select t4.priority, count(*) cnt
+	from hosts t1, items t2, functions t3, triggers t4
+	where 1=1
+	  and t1.hostid = t2.hostid and t2.itemid = t3.itemid and t3.triggerid = t4.triggerid
+	  and t1.host = 'Zabbix server'
+	group by t4.priority) v1 right join w1 on (v1.priority = w1.num)
+order by 1 desc;
+
+with recursive w1(num) as (values(0) union all select num + 1 from w1 where num < 5)
+select w1.num, count(*)
+from hosts t1 inner join items t2 on (t1.hostid = t2.hostid) 
+	          inner join functions t3 on (t2.itemid = t3.itemid)
+	          inner join triggers t4 on (t3.triggerid = t4.triggerid)
+	          right join w1 on (t4.priority = w1.num)
 where 1=1
   and t1.hostid = t2.hostid and t2.itemid = t3.itemid and t3.triggerid = t4.triggerid
   and t1.host = 'Zabbix server'
-group by w1.n
+group by w1.num
 order by 1 desc;
 
 select 
