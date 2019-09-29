@@ -21,7 +21,7 @@
 		</div>
 		
 		<div class="container-fluid">
-			<form action="${contextPath}/board/write.do" method="post">
+			<form method="post">
 				<div class="form-group row">
 					<label for="boardSubject" class="col-sm-2 col-form-label">제목</label>
 					<div class="col-sm-10">
@@ -49,7 +49,7 @@
 			$("#boardSubject").focus();
 			
 			$("#btnCancle").click(function() {
-				self.location = "${contextPath}/board/list.do";
+				
 			});
 		});
 	</script>

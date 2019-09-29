@@ -10,7 +10,7 @@
 </head>
 <body class="text-center">
 
-	<form class="form-signin" action="login.do" method="post">
+	<form class="form-signin" method="post">
 		<h1 class="h3 mb-3 font-weight-normal">로그인이 필요합니다.</h1>
 		
 		<label for="id" class="sr-only">아이디</label>

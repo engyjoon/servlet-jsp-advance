@@ -21,8 +21,8 @@
 		</div>
 		
 		<form id="frmMain" method="post">
-			<input type="hidden" name="bno" value="${boardVO.boardNum }">
-			<input type="hidden" name="page" value="${pageRange.page }">
+			<input type="hidden" name="bno" value="">
+			<input type="hidden" name="page" value="">
 		</form>
 		
 		<div class="container-fluid">
@@ -30,13 +30,13 @@
 			<div class="form-group row">
 				<label for="boardSubject" class="col-sm-2 col-form-label">제목</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="boardSubject" name="boardSubject" value="${boardVO.boardSubject }" readonly>
+					<input type="text" class="form-control" id="boardSubject" name="boardSubject" value="" readonly>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="boardContent" class="col-sm-2 col-form-label">내용</label>
 				<div class="col-sm-10">
-					<textarea class="form-control" id="boardContent" rows="10" name="boardContent" readonly>${boardVO.boardContent }</textarea>
+					<textarea class="form-control" id="boardContent" rows="10" name="boardContent" readonly></textarea>
 				</div>
 			</div>
 			<button class="btn btn-primary" type="submit" id="btnModify">수정</button>
@@ -56,20 +56,15 @@
 			var formObj = $("#frmMain");
 			
 			$("#btnModify").click(function() {
-				formObj.attr("action", "${contextPath}/board/modify.do")
-				formObj.attr("method", "get");
-				formObj.submit();
+				
 			});
 			
 			$("#btnDelete").click(function() {
-				formObj.attr("action", "${contextPath}/board/delete.do")
-				formObj.submit();
+				
 			});
 			
 			$("#btnCancle").click(function() {
-				formObj.attr("method", "get");
-				formObj.attr("action", "${contextPath}/board/list.do");
-				formObj.submit();
+				
 			});
 		});
 	</script>

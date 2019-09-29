@@ -40,42 +40,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="vo" items="${boardList}">
-						<tr>
-							<th scope="row" style="width:100px" class="text-center">${vo.boardNum}</th>
-							<td class="w-auto" ><a href="${contextPath}/board/read.do?bno=${vo.boardNum}&page=${pageMaker.pageRange.page}">${vo.boardSubject }</a></td>
-							<td style="width:200px" class="text-center">${vo.memberName }</td>
-							<td style="width:300px" class="text-center"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy/MM/dd HH:mm:ss" /></td>
-							<td style="width:100px" class="text-center">${vo.boardReadCount }</td>
-						</tr>
-					</c:forEach>
+
 				</tbody>
 			</table>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col">
-				<nav>
-					<ul class="pagination justify-content-center">
-						<c:if test="${pageMaker.prev }">
-							<li class="page-item">
-								<a class="page-link" href="${contextPath}/board/list.do?page=${pageMaker.startPage - 1}"><span aria-hidden="true">&laquo;</span></a>
-							</li>
-						</c:if>
-						
-						<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage }" var="idx">
-							<li class="page-item" <c:out value="${pageMaker.pageRange.page == idx?'id=pageItemActive':''}"/>>
-								<a class="page-link" href="${contextPath}/board/list.do?page=${idx}">${idx}</a>
-							</li>
-						</c:forEach>
-						
-						<c:if test="${pageMaker.next }">
-							<li class="page-item">
-								<a class="page-link" href="${contextPath}/board/list.do?page=${pageMaker.endPage + 1}"><span aria-hidden="true">&raquo;</span></a>
-							</li>
-						</c:if>
-					</ul>
-				</nav>
+
 			</div>
 		</div>
 	</div>
@@ -89,7 +61,7 @@
 			feather.replace();
 			$(".sidebar-sticky > .nav > li:eq(1)").children().addClass("active");
 			$("#btnWrite").click(function() {
-				location.href = "${contextPath}/board/write.do";
+				
 			});
 			$("#pageItemActive").addClass("active");
 		});
