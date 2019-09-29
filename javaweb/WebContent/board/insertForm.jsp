@@ -21,7 +21,7 @@
 		</div>
 		
 		<div class="container-fluid">
-			<form method="post">
+			<form method="post" action="${contextPath}/board/write.do">
 				<div class="form-group row">
 					<label for="boardSubject" class="col-sm-2 col-form-label">제목</label>
 					<div class="col-sm-10">

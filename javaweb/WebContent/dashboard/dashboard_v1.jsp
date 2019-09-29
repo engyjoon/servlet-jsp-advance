@@ -85,9 +85,111 @@
 			feather.replace();
 			$(".sidebar-sticky > .nav > li:eq(0)").children().addClass("active");
 
+			loadCharts();
+			
+			/*
+			refreshCharts = setInterval(function() {
+				loadCharts();
+			}, 5000);
+			*/
 		});
 		
-
+		var loadCharts = function() {
+			
+			$.ajax({
+				type: 'post',
+				url: '${contextPath}/zabbix/listAlarm.do',
+				data: {"host":"Zabbix server"},
+				dataType: 'json'
+			}).done(function(data, status) {
+				cfgBar.data.datasets[0].data = data;
+				var chartAlarm = new Chart(ctxAlarm, cfgBar);
+			});
+			
+			$.ajax({
+				type: 'post',
+				url: '${contextPath}/zabbix/listHistory.do',
+				data: {"host":"Zabbix server", "key":"system.cpu.util[,idle]", "table":"history"},
+				dataType: 'json'
+			}).done(function(data, status) {
+				cfgLinePerc.data.datasets[0].data = data;
+				var chartCpu = new Chart(ctxCpu, cfgLinePerc);
+			});
+			
+		}
+		
+		var ctxAlarm = document.getElementById("chartAlarm").getContext("2d");
+		var ctxCpu = document.getElementById("chartCpu").getContext("2d");
+		
+		var cfgBar = {
+			type: 'bar',
+			data: {
+				labels: ["치명", "긴급", "위험", "주의", "무해", "미분류"],
+				datasets: [{
+					data: [],
+					backgroundColor: 'rgba(255, 32, 13, 0.5)',
+					borderColor: 'rgba(255, 32, 13, 0.7)',
+					borderWidth: 1
+				}]
+			},
+			options: {
+				legend: {
+					display: false
+				},
+				scales: {
+					xAxes: [{
+						barPercentage: 0.5
+					}],
+					yAxes: [{
+						ticks: {
+							max: 50
+						}
+					}]
+				}
+			}
+		}
+		
+		var cfgLinePerc = {
+			type: 'line',
+			data: {
+				datasets: [{
+					data: [],
+					backgroundColor: 'rgba(15, 71, 254, 0.5)',
+					borderColor: 'rgba(15, 71, 254, 0.7)',
+					borderWidth: 1,
+					pointRadius: 2
+				}]
+			},
+			options: {
+				legend: {
+					display: false
+				},
+				scales: {
+					xAxes: [{
+						type: 'time',
+						gridLines: {
+							display: true,
+							drawOnChartArea: false
+						},
+						time: {
+							displayFormats: {
+								minute: 'HH:mm'
+							}
+						}
+					}],
+					yAxes: [{
+						ticks: {
+							type: 'linear',
+							beginAtZero: true,
+							max: 100,
+							callback: function(value, index, values) {
+								return value + '%';
+							}
+						}
+					}]
+				}
+			}
+		}
     </script>
 	
 </body>
